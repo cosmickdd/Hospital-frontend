@@ -1,3 +1,9 @@
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for navbar spacing and smooth scrolling */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +11,484 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Add padding-top to account for fixed navbar */
+  padding-top: 6rem; /* Adjust this based on navbar height */
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #15803d;
+}
+
+/* Utility for hiding scrollbars */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Enhanced Meditation Figure Animations - Cleaned Up */
+@keyframes fade-in {
+  0% { 
+    opacity: 0; 
+    transform: translateY(10px) scale(0.95); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    filter: drop-shadow(0 0 5px currentColor);
+    opacity: 0.8;
+  }
+  50% { 
+    filter: drop-shadow(0 0 15px currentColor);
+    opacity: 1;
+  }
+}
+
+@keyframes meditation-breath {
+  0%, 100% { 
+    transform: scale(1) translateY(0px); 
+    opacity: 0.9; 
+  }
+  50% { 
+    transform: scale(1.02) translateY(-2px); 
+    opacity: 1; 
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-meditation-breath {
+  animation: meditation-breath 6s ease-in-out infinite;
+}
+
+/* Professional fade-in animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+/* Smooth transitions for all interactive elements */
+.meditation-figure * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Improved focus states for accessibility */
+.meditation-figure button:focus {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+}
+
+.meditation-figure .chakra-point:focus {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+/* Energy Ring Rotations */
+.energy-ring-1 {
+  animation: spin-slow 25s linear infinite;
+  transform-origin: center;
+}
+
+.energy-ring-2 {
+  animation: spin-reverse 20s linear infinite;
+  transform-origin: center;
+}
+
+.energy-ring-3 {
+  animation: spin-slow 15s linear infinite;
+  transform-origin: center;
+}
+
+/* Lotus Petal Animation */
+.lotus-petal {
+  animation: breath 3s ease-in-out infinite;
+}
+
+/* Meditation Figure Breathing */
+.meditation-body {
+  animation: breath 5s ease-in-out infinite;
+}
+
+/* Floating Particles */
+.floating-particle {
+  animation: float 4s ease-in-out infinite;
+}
+
+.floating-particle:nth-child(2) {
+  animation-delay: -1s;
+}
+
+.floating-particle:nth-child(3) {
+  animation-delay: -2s;
+}
+
+.floating-particle:nth-child(4) {
+  animation-delay: -3s;
+}
+
+/* 3D Prana AI Character Styles */
+.prana-ai-3d-container {
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 35%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 100px rgba(59, 130, 246, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* Chakra Glow Effects */
+.chakra-glow-root { color: #dc2626; filter: drop-shadow(0 0 8px #dc2626); }
+.chakra-glow-sacral { color: #ea580c; filter: drop-shadow(0 0 8px #ea580c); }
+.chakra-glow-solar { color: #eab308; filter: drop-shadow(0 0 8px #eab308); }
+.chakra-glow-heart { color: #16a34a; filter: drop-shadow(0 0 8px #16a34a); }
+.chakra-glow-throat { color: #2563eb; filter: drop-shadow(0 0 8px #2563eb); }
+.chakra-glow-third { color: #7c3aed; filter: drop-shadow(0 0 8px #7c3aed); }
+.chakra-glow-crown { color: #a855f7; filter: drop-shadow(0 0 8px #a855f7); }
+
+/* 3D Scene Enhancements */
+.three-canvas {
+  cursor: grab;
+}
+
+.three-canvas:active {
+  cursor: grabbing;
+}
+
+/* Cosmic Animation Keyframes */
+@keyframes cosmic-pulse {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(1) rotate(0deg); 
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.2) rotate(180deg); 
+  }
+}
+
+@keyframes float-cosmic {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  33% { 
+    transform: translateY(-15px) rotate(120deg); 
+  }
+  66% { 
+    transform: translateY(-5px) rotate(240deg); 
+  }
+}
+
+@keyframes chakra-energy-flow {
+  0% { 
+    stroke-dashoffset: 0; 
+    opacity: 0.6; 
+  }
+  50% { 
+    stroke-dashoffset: 50; 
+    opacity: 1; 
+  }
+  100% { 
+    stroke-dashoffset: 100; 
+    opacity: 0.6; 
+  }
+}
+
+/* Animation Classes */
+.animate-cosmic-pulse {
+  animation: cosmic-pulse 4s ease-in-out infinite;
+}
+
+.animate-float-cosmic {
+  animation: float-cosmic 6s ease-in-out infinite;
+}
+
+.animate-chakra-energy-flow {
+  animation: chakra-energy-flow 3s linear infinite;
+}
+
+/* Performance optimizations for 3D */
+.prana-ai-3d-container,
+.three-canvas,
+.chakra-point-3d {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Mobile responsiveness for 3D character */
+@media (max-width: 768px) {
+  .prana-ai-3d-container {
+    height: 400px;
+  }
+  
+  .chakra-tooltip-3d {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+    max-width: 250px;
+  }
+}
+
+/* Loading states */
+.three-loading {
+  background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.1) 50%, transparent 70%);
+  background-size: 200% 200%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+  .meditation-figure {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .chakra-tooltip {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .animate-spin-reverse,
+  .animate-bounce,
+  .animate-pulse,
+  .animate-float,
+  .animate-glow-pulse,
+  .animate-chakra-ripple,
+  .animate-energy-flow,
+  .animate-breath {
+    animation: none;
+  }
+}
+
+/* Performance Optimizations */
+.meditation-figure,
+.chakra-point,
+.energy-ring {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Meditation Figure Animations */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes spin-medium {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(120deg); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(90deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes pulse-gentle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.6; }
+}
+
+@keyframes chakra-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Animation Classes */
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 15s linear infinite;
+}
+
+.animate-spin-medium {
+  animation: spin-medium 10s linear infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 4s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 3s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+.animate-chakra-pulse {
+  animation: chakra-pulse 1.5s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Hover Effects */
+.group:hover .group-hover\:animate-spin-medium {
+  animation: spin-medium 8s linear infinite;
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+.group:hover .group-hover\:opacity-0\.2 {
+  opacity: 0.2;
+}
+
+/* Custom Utilities */
+.drop-shadow-lg {
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+
+/* Enhanced shadow utilities for meditation card */
+.shadow-3xl {
+  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25), 
+              0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-4xl {
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.25), 
+              0 30px 60px -30px rgba(0, 0, 0, 0.3);
+}
+
+/* Breathing animation utilities */
+.scale-102 {
+  transform: scale(1.02);
+}
+
+.scale-98 {
+  transform: scale(0.98);
+}
+
+/* Enhanced backdrop blur */
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+
+/* Custom gradient backgrounds */
+.bg-meditation-gradient {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(236, 254, 255, 0.95) 25%,
+    rgba(240, 253, 250, 0.95) 50%,
+    rgba(255, 255, 255, 0.95) 100%);
 }
