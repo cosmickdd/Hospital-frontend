@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.svg'; // place your logo in src/assets/
+import { useDarkMode } from '../contexts/DarkModeContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showTopBar, setShowTopBar] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +28,35 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHovering]);
 
+  // Close mobile menu on resize to desktop view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) { // md breakpoint
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobileMenuOpen && !event.target.closest('.mobile-menu-container')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
   const handleMouseEnter = () => {
     setIsHovering(true);
     setShowTopBar(true);
@@ -37,35 +69,69 @@ const Navbar = () => {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        isScrolled ? 'shadow-lg' : 'shadow-sm'
-      }`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+    <>
+      {/* Mobile Menu Backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden transition-opacity duration-300"
+          onClick={closeMobileMenu}
+        />
+      )}
+
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+          isScrolled ? 'shadow-lg' : 'shadow-sm'
+        }`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
       {/* Top Contact Bar - Slides up/down */}
       <div 
-        className={`bg-gray-50 border-b border-gray-200 transition-all duration-300 ease-in-out transform ${
+        className={`bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out transform ${
           showTopBar ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-2 text-xs text-gray-600">
+          <div className="flex justify-between items-center py-2 text-xs text-gray-600 dark:text-gray-300">
             <div className="flex items-center space-x-4">
               <p>
                 <span className="font-semibold">24/7 Emergency Care:</span>
-                <a href="tel:+919455234541" className="ml-1 text-green-700 hover:text-green-800 transition-colors">
+                <a href="tel:+919455234541" className="ml-1 text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition-colors">
                   +91-9455234541
                 </a>
               </p>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <a href="/find-doctor" className="hover:text-green-700 transition-colors">Find a Doctor</a>
-              <a href="/locations" className="hover:text-green-700 transition-colors">Locations</a>
-              <a href="/patients" className="hover:text-green-700 transition-colors">For Patients</a>
-              <a href="/careers" className="hover:text-green-700 transition-colors">Careers</a>
+              <a href="/find-doctor" className="hover:text-green-700 dark:hover:text-green-400 transition-colors">Find a Doctor</a>
+              <a href="/locations" className="hover:text-green-700 dark:hover:text-green-400 transition-colors">Locations</a>
+              <a href="/patients" className="hover:text-green-700 dark:hover:text-green-400 transition-colors">For Patients</a>
+              <a href="/careers" className="hover:text-green-700 dark:hover:text-green-400 transition-colors">Careers</a>
+              
+              {/* Dark Mode Toggle */}
+              <button
+                onClick={toggleDarkMode}
+                className="p-1.5 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                aria-label="Toggle dark mode"
+              >
+                {isDarkMode ? (
+                  <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                  </svg>
+                )}
+              </button>
             </div>
           </div>
         </div>
@@ -73,10 +139,10 @@ const Navbar = () => {
 
       {/* Main Navigation Bar */}
       <div 
-        className={`bg-white transition-all duration-300 ease-in-out ${
+        className={`transition-all duration-300 ease-in-out ${
           isScrolled 
-            ? 'bg-white/95 backdrop-blur-md border-b border-gray-200/50' 
-            : 'bg-white border-b border-gray-200'
+            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50' 
+            : 'bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,59 +165,189 @@ const Navbar = () => {
             <nav className="hidden md:flex items-center space-x-8">
               <a 
                 href="/" 
-                className="text-yellow-600 font-semibold border-b-2 border-yellow-600 pb-1 transition-colors"
+                className="text-yellow-600 dark:text-yellow-400 font-semibold border-b-2 border-yellow-600 dark:border-yellow-400 pb-1 transition-colors"
               >
                 HOME
               </a>
               <a 
                 href="/services" 
-                className="text-white bg-green-700 px-4 py-2 rounded-md font-medium hover:bg-green-800 transition-colors"
+                className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 SERVICES
               </a>
               <a 
                 href="/prana-ai" 
-                className="text-white bg-green-700 px-4 py-2 rounded-md font-medium hover:bg-green-800 transition-colors"
+                className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 PRANA AI
               </a>
               <a 
                 href="/about" 
-                className="text-white bg-green-700 px-4 py-2 rounded-md font-medium hover:bg-green-800 transition-colors"
+                className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 ABOUT
               </a>
               <a 
                 href="/contact" 
-                className="text-white bg-green-700 px-4 py-2 rounded-md font-medium hover:bg-green-800 transition-colors"
+                className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 CONTACT
               </a>
             </nav>
 
-            {/* Appointment Button */}
-            <div className="flex items-center space-x-4">
-              <div className="text-right text-sm text-gray-700 hidden lg:block">
+            {/* Appointment Button - Desktop */}
+            <div className="hidden md:flex items-center space-x-4">
+              <div className="text-right text-sm text-gray-700 dark:text-gray-300 hidden lg:block">
                 <p className="italic text-xs">Request an</p>
-                <p className="text-green-800 font-bold text-sm">GET APPOINTMENT</p>
+                <p className="text-green-800 dark:text-green-400 font-bold text-sm">GET APPOINTMENT</p>
               </div>
-              <button className="bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">
+              <button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl transform hover:-translate-y-0.5">
                 BOOK NOW
               </button>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button className="text-gray-500 hover:text-gray-700 focus:outline-none p-2">
-                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            {/* Mobile Right Section */}
+            <div className="flex md:hidden items-center space-x-3">
+              {/* Dark Mode Toggle - Mobile */}
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                aria-label="Toggle dark mode"
+              >
+                {isDarkMode ? (
+                  <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                  </svg>
+                )}
+              </button>
+
+              {/* Mobile Book Now Button */}
+              <button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-2.5 px-5 rounded-md shadow-md transition-all duration-300 text-sm touch-manipulation min-h-[44px]">
+                BOOK
+              </button>
+
+              {/* Mobile menu button */}
+              <button 
+                onClick={toggleMobileMenu}
+                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none p-2 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label="Toggle mobile menu"
+              >
+                <svg 
+                  className={`h-6 w-6 transform transition-all duration-300 ease-in-out ${
+                    isMobileMenuOpen ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
+                  }`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                >
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16"></path>
+                  )}
                 </svg>
               </button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        <div 
+          className={`md:hidden mobile-menu-container transition-all duration-300 ease-in-out ${
+            isMobileMenuOpen 
+              ? 'max-h-[500px] opacity-100 visible' 
+              : 'max-h-0 opacity-0 invisible overflow-hidden'
+          }`}
+        >
+          <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-xl">
+            <nav className="px-4 py-6 space-y-2">
+              <a 
+                href="/" 
+                onClick={closeMobileMenu}
+                className="flex items-center text-yellow-600 dark:text-yellow-400 font-semibold py-3 px-4 rounded-lg border-l-4 border-yellow-600 dark:border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 transition-all duration-200 touch-manipulation min-h-[48px]"
+              >
+                <span className="ml-2">HOME</span>
+              </a>
+              <a 
+                href="/services" 
+                onClick={closeMobileMenu}
+                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              >
+                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                <span>SERVICES</span>
+              </a>
+              <a 
+                href="/prana-ai" 
+                onClick={closeMobileMenu}
+                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              >
+                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+                <span>PRANA AI</span>
+              </a>
+              <a 
+                href="/about" 
+                onClick={closeMobileMenu}
+                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              >
+                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>ABOUT</span>
+              </a>
+              <a 
+                href="/contact" 
+                onClick={closeMobileMenu}
+                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              >
+                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <span>CONTACT</span>
+              </a>
+              
+              {/* Mobile Menu Footer */}
+              <div className="pt-6 border-t border-gray-200 dark:border-gray-700 space-y-4">
+                <button 
+                  onClick={closeMobileMenu}
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:shadow-xl touch-manipulation"
+                >
+                  <span className="flex items-center justify-center">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3a1 1 0 011-1h6a1 1 0 011 1v4M8 7H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7"></path>
+                    </svg>
+                    BOOK APPOINTMENT
+                  </span>
+                </button>
+                
+                {/* Emergency Contact in Mobile Menu */}
+                <div className="text-center bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">24/7 Emergency Care</p>
+                  <a 
+                    href="tel:+919455234541" 
+                    className="text-green-700 dark:text-green-400 font-bold text-lg hover:text-green-800 dark:hover:text-green-300 transition-colors flex items-center justify-center"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    +91-9455234541
+                  </a>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
       </div>
-    </header>
+      </header>
+    </>
   );
 };
 
