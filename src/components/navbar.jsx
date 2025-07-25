@@ -89,6 +89,18 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
   };
 
+  // Smooth scrolling function
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      setIsMobileMenuOpen(false); // Close mobile menu if open
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
     <>
       {/* Mobile Menu Backdrop */}
@@ -175,36 +187,36 @@ const Navbar = () => {
 
             {/* Navigation Links */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a 
-                href="/" 
+              <button 
+                onClick={() => scrollToSection('home')}
                 className="text-yellow-600 dark:text-yellow-400 font-semibold border-b-2 border-yellow-600 dark:border-yellow-400 pb-1 transition-colors"
               >
                 HOME
-              </a>
-              <a 
-                href="/services" 
+              </button>
+              <button 
+                onClick={() => scrollToSection('services')}
                 className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 SERVICES
-              </a>
-              <a 
-                href="/prana-ai" 
+              </button>
+              <button 
+                onClick={() => scrollToSection('prana-ai')}
                 className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 PRANA AI
-              </a>
-              <a 
-                href="/about" 
+              </button>
+              <button 
+                onClick={() => scrollToSection('about')}
                 className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 ABOUT
-              </a>
-              <a 
-                href="/contact" 
+              </button>
+              <button 
+                onClick={() => scrollToSection('contact')}
                 className="text-white bg-green-700 dark:bg-green-600 px-4 py-2 rounded-md font-medium hover:bg-green-800 dark:hover:bg-green-700 transition-colors"
               >
                 CONTACT
-              </a>
+              </button>
             </nav>
 
             {/* Appointment Button - Desktop */}
@@ -280,53 +292,48 @@ const Navbar = () => {
         >
           <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-xl">
             <nav className="px-4 py-6 space-y-2">
-              <a 
-                href="/" 
-                onClick={closeMobileMenu}
-                className="flex items-center text-yellow-600 dark:text-yellow-400 font-semibold py-3 px-4 rounded-lg border-l-4 border-yellow-600 dark:border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 transition-all duration-200 touch-manipulation min-h-[48px]"
+              <button 
+                onClick={() => scrollToSection('home')}
+                className="w-full flex items-center text-yellow-600 dark:text-yellow-400 font-semibold py-3 px-4 rounded-lg border-l-4 border-yellow-600 dark:border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20 transition-all duration-200 touch-manipulation min-h-[48px]"
               >
                 <span className="ml-2">HOME</span>
-              </a>
-              <a 
-                href="/services" 
-                onClick={closeMobileMenu}
-                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              </button>
+              <button 
+                onClick={() => scrollToSection('services')}
+                className="w-full flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                 </svg>
                 <span>SERVICES</span>
-              </a>
-              <a 
-                href="/prana-ai" 
-                onClick={closeMobileMenu}
-                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              </button>
+              <button 
+                onClick={() => scrollToSection('prana-ai')}
+                className="w-full flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                 </svg>
                 <span>PRANA AI</span>
-              </a>
-              <a 
-                href="/about" 
-                onClick={closeMobileMenu}
-                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              </button>
+              <button 
+                onClick={() => scrollToSection('about')}
+                className="w-full flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
                 <span>ABOUT</span>
-              </a>
-              <a 
-                href="/contact" 
-                onClick={closeMobileMenu}
-                className="flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
+              </button>
+              <button 
+                onClick={() => scrollToSection('contact')}
+                className="w-full flex items-center text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 py-3 px-4 rounded-lg transition-all duration-200 touch-manipulation min-h-[48px]"
               >
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
                 <span>CONTACT</span>
-              </a>
+              </button>
               
               {/* Mobile Menu Footer */}
               <div className="pt-6 border-t border-gray-200 dark:border-gray-700 space-y-4">
@@ -366,4 +373,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

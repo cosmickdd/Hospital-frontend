@@ -12,6 +12,17 @@ const HomePage = () => {
   const autoScrollInterval = 4000; // 4 seconds
   const { isDarkMode } = useDarkMode();
 
+  // Smooth scrolling function
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   // Progress bar animation
   useEffect(() => {
     const startTime = Date.now();
@@ -62,7 +73,7 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-teal-50 via-white to-emerald-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 min-h-screen flex items-center relative overflow-hidden">
+      <section id="home" className="bg-gradient-to-br from-teal-50 via-white to-emerald-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 min-h-screen flex items-center relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
           <svg className="w-full h-full text-teal-600 dark:text-teal-400" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -98,11 +109,17 @@ const HomePage = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold py-4 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl text-center touch-manipulation">
-                  Schedule Appointment
+                <button 
+                  onClick={() => scrollToSection('prana-ai')}
+                  className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+                >
+                  Meet Prana AI
                 </button>
-                <button className="border-2 border-teal-600 dark:border-teal-400 text-teal-700 dark:text-teal-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 font-semibold py-4 px-8 rounded-lg transition-all duration-300 text-center touch-manipulation">
-                  Health Assessment
+                <button 
+                  onClick={() => scrollToSection('services')}
+                  className="border-2 border-teal-600 dark:border-teal-400 text-teal-600 dark:text-teal-400 hover:bg-teal-600 dark:hover:bg-teal-400 hover:text-white dark:hover:text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:-translate-y-1"
+                >
+                  Explore Services
                 </button>
               </div>
 
@@ -155,7 +172,7 @@ const HomePage = () => {
       </section>
 
       {/* Therapy Slider Section */}
-      <section className="py-16 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-gray-800 dark:to-gray-900">
+      <section id="therapies" className="py-16 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-gray-800 dark:to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">
@@ -351,15 +368,228 @@ const HomePage = () => {
 
           {/* Call to Action */}
           <div className="text-center mt-12">
-            <button className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl touch-manipulation">
+            <button 
+              onClick={() => scrollToSection('services')}
+              className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl touch-manipulation"
+            >
               Explore All Therapies
             </button>
           </div>
         </div>
       </section>
 
+      {/* Prana AI Section */}
+      <section id="prana-ai" className="py-20 lg:py-28 bg-gradient-to-br from-indigo-50 via-purple-50 to-cyan-50 dark:from-gray-900 dark:via-indigo-900/20 dark:to-purple-900/20 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-cyan-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-r from-purple-400/10 to-indigo-400/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-400/5 to-purple-400/5 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
+            
+            {/* Left Content */}
+            <div className="space-y-8 text-center lg:text-left">
+              {/* Badge */}
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-400/20 backdrop-blur-sm">
+                <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full mr-3 animate-pulse"></div>
+                <span className="text-cyan-700 dark:text-cyan-300 text-sm font-medium">AI-Powered Healthcare Assistant</span>
+              </div>
+
+              {/* Main Headline */}
+              <div className="space-y-4">
+                <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+                  <span className="bg-gradient-to-r from-cyan-600 via-purple-600 to-indigo-600 dark:from-cyan-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent block">
+                    Meet Prana AI
+                  </span>
+                  <span className="text-gray-800 dark:text-gray-100 block mt-2">
+                    Your Ayurvedic Health Companion
+                  </span>
+                </h2>
+                
+                <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  Experience personalized healthcare with our AI assistant that seamlessly blends 5,000 years of Ayurvedic wisdom with cutting-edge technology for comprehensive health guidance and wellness optimization.
+                </p>
+              </div>
+
+              {/* Features Grid */}
+              <div className="grid sm:grid-cols-2 gap-6 mt-8">
+                <div className="flex items-start space-x-4 p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                  <div className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">Instant Dosha Analysis</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">AI-powered constitutional assessment based on Ayurvedic principles</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4 p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">Personalized Remedies</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Custom herbal prescriptions and lifestyle recommendations</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4 p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                  <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">24/7 Health Monitoring</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Continuous wellness tracking and proactive care alerts</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4 p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                  <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">Ancient Wisdom Integration</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Modern AI backed by traditional Ayurvedic knowledge</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-6">
+                <button 
+                  onClick={() => scrollToSection('contact')}
+                  className="group relative bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+                >
+                  <span className="relative z-10 flex items-center justify-center">
+                    🧘‍♀️ Start Your AI Health Journey
+                    <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                  </span>
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-600 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                </button>
+                
+                <button 
+                  onClick={() => scrollToSection('about')}
+                  className="group border-2 border-cyan-600 dark:border-cyan-400 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-600 dark:hover:bg-cyan-400 hover:text-white dark:hover:text-gray-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:-translate-y-1"
+                >
+                  <span className="flex items-center justify-center">
+                    Learn How It Works
+                    <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-9-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Content - AI Character Space */}
+            <div className="relative flex justify-center lg:justify-end">
+              {/* Main AI Character Container */}
+              <div className="relative w-96 h-96 mx-auto">
+                
+                {/* Energy Aura Layers */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/20 via-purple-500/20 to-indigo-500/20 animate-pulse"></div>
+                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-cyan-500/10 via-purple-600/10 to-indigo-600/10 animate-spin-slow"></div>
+                <div className="absolute inset-8 rounded-full border-2 border-dashed border-cyan-400/30 animate-pulse"></div>
+                
+                {/* Central AI Representation */}
+                <div className="absolute inset-16 rounded-full bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-600 flex items-center justify-center shadow-2xl">
+                  
+                  {/* AI Character Placeholder */}
+                  <div className="relative w-32 h-32">
+                    {/* Main Face/Head */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-200 via-purple-200 to-indigo-200 shadow-inner">
+                      
+                      {/* AI Pattern Overlay */}
+                      <div className="absolute inset-2 rounded-full bg-gradient-to-br from-cyan-300/50 to-purple-300/50 flex items-center justify-center">
+                        <svg className="w-16 h-16 text-indigo-600 animate-pulse" viewBox="0 0 100 100">
+                          <circle cx="30" cy="35" r="3" fill="currentColor">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                          </circle>
+                          <circle cx="70" cy="35" r="3" fill="currentColor">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                          </circle>
+                          <circle cx="50" cy="20" r="2" fill="currentColor">
+                            <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/>
+                          </circle>
+                          <circle cx="50" cy="65" r="2" fill="currentColor">
+                            <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+                          </circle>
+                          
+                          {/* Neural Network Lines */}
+                          <line x1="30" y1="35" x2="50" y2="20" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                          <line x1="70" y1="35" x2="50" y2="20" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                          <line x1="30" y1="35" x2="50" y2="65" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                          <line x1="70" y1="35" x2="50" y2="65" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                          
+                          {/* Om Symbol */}
+                          <text x="50" y="50" textAnchor="middle" className="text-xs fill-current">🕉️</text>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Elements */}
+                <div className="absolute -top-4 -left-4 w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold animate-bounce shadow-lg">
+                  AI
+                </div>
+                <div className="absolute -bottom-4 -right-4 w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center text-white text-lg animate-bounce shadow-lg" style={{animationDelay: '0.5s'}}>
+                  🧠
+                </div>
+                <div className="absolute top-1/4 -right-6 w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white text-sm animate-pulse shadow-lg">
+                  ✨
+                </div>
+                <div className="absolute bottom-1/4 -left-6 w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-sm animate-pulse shadow-lg" style={{animationDelay: '1s'}}>
+                  🌿
+                </div>
+                
+                {/* Character Placeholder Text */}
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-lg">
+                    3D Character Coming Soon
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Stats */}
+          <div className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div className="space-y-2 p-6 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl">
+              <div className="text-3xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent">5000+</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm font-medium">Years of Wisdom</div>
+            </div>
+            <div className="space-y-2 p-6 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl">
+              <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">3</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm font-medium">Doshas Balanced</div>
+            </div>
+            <div className="space-y-2 p-6 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl">
+              <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent">100+</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm font-medium">Herbal Remedies</div>
+            </div>
+            <div className="space-y-2 p-6 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl">
+              <div className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-400 dark:to-red-400 bg-clip-text text-transparent">24/7</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm font-medium">AI Assistance</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section id="services" className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">Medical Services</h2>
@@ -450,84 +680,203 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-20 bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-gray-800 dark:to-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100">
-                Excellence in <span className="text-teal-700 dark:text-teal-300">Healthcare</span>
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                Our commitment to patient-centered care combines clinical excellence with innovative treatment approaches. 
-                We integrate evidence-based medicine with complementary healing practices for comprehensive healthcare solutions.
-              </p>
-              
-              <div className="space-y-4">
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-teal-600 dark:bg-teal-500 rounded-full flex items-center justify-center mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
+      {/* About Hospital Section */}
+      <section id="about" className="py-20 lg:py-28 bg-gradient-to-br from-teal-50 via-emerald-50 to-cyan-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 opacity-10 dark:opacity-20">
+          <div className="absolute top-20 left-20 w-40 h-40 bg-teal-400 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-32 h-32 bg-emerald-400 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-teal-100 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-700 mb-6">
+              <span className="text-teal-700 dark:text-teal-300 text-sm font-medium">About Sahib Hospital</span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+              Excellence in <span className="bg-gradient-to-r from-teal-600 to-emerald-600 dark:from-teal-400 dark:to-emerald-400 bg-clip-text text-transparent">Healthcare</span>
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              A state-of-the-art medical facility where traditional healing wisdom meets modern healthcare technology, 
+              providing comprehensive and compassionate care to our community for over three decades.
+            </p>
+          </div>
+
+          {/* Main Content Grid */}
+          <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center mb-20">
+            
+            {/* Left Content - Hospital Video/Interior */}
+            <div className="space-y-8">
+              {/* Video Container */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-teal-100 to-emerald-100 dark:from-teal-900/30 dark:to-emerald-900/30">
+                <div className="aspect-video bg-gradient-to-br from-teal-200 to-emerald-200 dark:from-teal-800 dark:to-emerald-800 flex items-center justify-center relative">
+                  {/* Video Placeholder */}
+                  <div className="text-center space-y-4">
+                    <div className="w-20 h-20 bg-white/80 dark:bg-gray-800/80 rounded-full flex items-center justify-center mx-auto shadow-lg">
+                      <svg className="w-10 h-10 text-teal-600 dark:text-teal-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Hospital Tour Video</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Explore our modern facilities and amenities</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 dark:text-gray-100">Multidisciplinary Care</h4>
-                    <p className="text-gray-600 dark:text-gray-300">Collaborative treatment approach integrating medical specialties for comprehensive patient care.</p>
-                  </div>
+                  
+                  {/* Play Button Overlay */}
+                  <button className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 transition-all duration-300 group">
+                    <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <svg className="w-8 h-8 text-teal-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </button>
                 </div>
                 
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-teal-600 dark:bg-teal-500 rounded-full flex items-center justify-center mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 dark:text-gray-100">Board-Certified Physicians</h4>
-                    <p className="text-gray-600 dark:text-gray-300">Experienced medical professionals with specialized training and continuing education.</p>
-                  </div>
+                {/* Video Info */}
+                <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+                  <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Inside Sahib Hospital</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Take a virtual tour of our comprehensive healthcare facilities, from emergency care to specialized treatment centers.</p>
                 </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-6 h-6 bg-teal-600 dark:bg-teal-500 rounded-full flex items-center justify-center mt-1">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 dark:text-gray-100">Advanced Medical Technology</h4>
-                    <p className="text-gray-600 dark:text-gray-300">State-of-the-art diagnostic equipment and AI-enhanced treatment protocols for precise care.</p>
-                  </div>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl">
+                  <div className="text-2xl font-bold text-teal-600 dark:text-teal-400">30+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Years of Service</div>
+                </div>
+                <div className="text-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl">
+                  <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">200+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Expert Doctors</div>
+                </div>
+                <div className="text-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl">
+                  <div className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">500+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">Beds Capacity</div>
                 </div>
               </div>
             </div>
-            
-            <div className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-2xl border dark:border-gray-700">
-                  <div className="text-3xl font-bold text-teal-700 dark:text-teal-400 mb-2">15+</div>
-                  <div className="text-gray-600 dark:text-gray-300">Years of Excellence</div>
+
+            {/* Right Content - Hospital Features & Map */}
+            <div className="space-y-8">
+              {/* Features List */}
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4 p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl">
+                  <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">Advanced Medical Technology</h4>
+                    <p className="text-gray-600 dark:text-gray-300">State-of-the-art diagnostic equipment including MRI, CT scan, digital X-ray, and AI-powered analysis systems.</p>
+                  </div>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-2xl border dark:border-gray-700">
-                  <div className="text-3xl font-bold text-emerald-700 dark:text-emerald-400 mb-2">10K+</div>
-                  <div className="text-gray-600 dark:text-gray-300">Happy Patients</div>
+
+                <div className="flex items-start space-x-4 p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl">
+                  <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">Integrated Ayurvedic Care</h4>
+                    <p className="text-gray-600 dark:text-gray-300">Specialized Panchakarma center, herbal medicine preparation lab, and traditional therapy rooms alongside modern treatment facilities.</p>
+                  </div>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-2xl border dark:border-gray-700">
-                  <div className="text-3xl font-bold text-green-700 dark:text-green-400 mb-2">50+</div>
-                  <div className="text-gray-600 dark:text-gray-300">Medical Experts</div>
+
+                <div className="flex items-start space-x-4 p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl">
+                  <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">24/7 Emergency Services</h4>
+                    <p className="text-gray-600 dark:text-gray-300">Round-the-clock emergency care with trauma center, ICU, NICU, and rapid response teams for critical care.</p>
+                  </div>
                 </div>
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg dark:shadow-2xl border dark:border-gray-700">
-                  <div className="text-3xl font-bold text-cyan-700 dark:text-cyan-400 mb-2">24/7</div>
-                  <div className="text-gray-600 dark:text-gray-300">Emergency Care</div>
+              </div>
+
+              {/* Hospital Structure/Map Placeholder */}
+              <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl p-6">
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4 flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  Hospital Layout & Location
+                </h4>
+                
+                {/* Interactive Map Placeholder */}
+                <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-lg flex items-center justify-center relative overflow-hidden">
+                  {/* Grid Pattern */}
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="w-full h-full" style={{
+                      backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                                       linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
+                      backgroundSize: '20px 20px'
+                    }}></div>
+                  </div>
+                  
+                  {/* Map Content */}
+                  <div className="text-center space-y-3 z-10">
+                    <div className="w-16 h-16 bg-teal-600 dark:bg-teal-500 rounded-full flex items-center justify-center mx-auto shadow-lg">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h5 className="font-semibold text-gray-800 dark:text-gray-200">Interactive Hospital Map</h5>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">Department locations and navigation guide</p>
+                    </div>
+                  </div>
+                  
+                  {/* Department Markers */}
+                  <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                  <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-blue-500 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  <div className="absolute bottom-1/3 left-1/2 w-3 h-3 bg-green-500 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                </div>
+                
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
+                    <div className="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                    Emergency
+                  </span>
+                  <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                    Ayurveda Wing
+                  </span>
+                  <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                    General Medicine
+                  </span>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Bottom CTA */}
+          <div className="text-center">
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl"
+            >
+              <span className="flex items-center justify-center">
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                Visit Our Hospital
+              </span>
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-teal-700 dark:bg-gray-900 relative overflow-hidden">
+      {/* Contact/CTA Section */}
+      <section id="contact" className="py-20 bg-teal-700 dark:bg-gray-900 relative overflow-hidden">
         {/* Background gradient overlay for dark mode */}
         <div className="absolute inset-0 bg-gradient-to-r from-teal-700 to-emerald-700 dark:from-gray-900 dark:via-gray-800 dark:to-teal-900 opacity-90"></div>
         
@@ -583,7 +932,7 @@ const HomePage = () => {
               <div className="space-y-2 text-sm text-gray-300 dark:text-gray-400">
                 <p className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                   </svg>
                   Phone: +91-9455234541
                 </p>

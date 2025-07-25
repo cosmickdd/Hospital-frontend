@@ -31,6 +31,20 @@ code {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Custom Animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
 /* Custom scrollbar - Light Mode */
 ::-webkit-scrollbar {
   width: 8px;
@@ -68,7 +82,7 @@ code {
   scrollbar-width: none;  /* Firefox */
 }
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+  display: none;  /* Safari and Chrome */
 }
 
 /* Enhanced gradients for dark mode */
