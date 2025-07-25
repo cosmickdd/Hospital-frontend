@@ -43,17 +43,26 @@ const Navbar = () => {
   // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isMobileMenuOpen && !event.target.closest('.mobile-menu-container')) {
-        setIsMobileMenuOpen(false);
+      if (isMobileMenuOpen) {
+        const mobileMenuContainer = document.querySelector('.mobile-menu-container');
+        const hamburgerButton = document.querySelector('[aria-label*="mobile menu"]');
+        
+        if (mobileMenuContainer && hamburgerButton &&
+            !mobileMenuContainer.contains(event.target) && 
+            !hamburgerButton.contains(event.target)) {
+          setIsMobileMenuOpen(false);
+        }
       }
     };
 
     if (isMobileMenuOpen) {
       document.addEventListener('click', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [isMobileMenuOpen]);
 
@@ -69,8 +78,11 @@ const Navbar = () => {
     }
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMobileMenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Hamburger menu clicked, current state:', isMobileMenuOpen);
+    setIsMobileMenuOpen(prev => !prev);
   };
 
   const closeMobileMenu = () => {
@@ -232,9 +244,11 @@ const Navbar = () => {
 
               {/* Mobile menu button */}
               <button 
+                type="button"
                 onClick={toggleMobileMenu}
-                className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none p-2 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label="Toggle mobile menu"
+                className="relative text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 p-2 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center bg-transparent border-0 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+                aria-expanded={isMobileMenuOpen}
               >
                 <svg 
                   className={`h-6 w-6 transform transition-all duration-300 ease-in-out ${
@@ -258,10 +272,10 @@ const Navbar = () => {
 
         {/* Mobile Navigation Menu */}
         <div 
-          className={`md:hidden mobile-menu-container transition-all duration-300 ease-in-out ${
+          className={`md:hidden mobile-menu-container relative transition-all duration-300 ease-in-out transform origin-top ${
             isMobileMenuOpen 
-              ? 'max-h-[500px] opacity-100 visible' 
-              : 'max-h-0 opacity-0 invisible overflow-hidden'
+              ? 'max-h-[500px] opacity-100 visible scale-y-100' 
+              : 'max-h-0 opacity-0 invisible overflow-hidden scale-y-0'
           }`}
         >
           <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-xl">
