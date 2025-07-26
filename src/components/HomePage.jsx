@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CompactMeditationFigure from './CompactMeditationFigure';
 import { useDarkMode } from '../contexts/DarkModeContext';
+import hospitalVideo from '../assets/videos/hospitalvideo.mp4';
 
 const HomePage = () => {
   // Therapy slider state and auto-scroll functionality
@@ -956,35 +957,16 @@ const HomePage = () => {
             <div className="space-y-8">
               {/* Video Container */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-teal-100 to-emerald-100 dark:from-teal-900/30 dark:to-emerald-900/30">
-                <div className="aspect-video bg-gradient-to-br from-teal-200 to-emerald-200 dark:from-teal-800 dark:to-emerald-800 flex items-center justify-center relative">
-                  {/* Video Placeholder */}
-                  <div className="text-center space-y-4">
-                    <div className="w-20 h-20 bg-white/80 dark:bg-gray-800/80 rounded-full flex items-center justify-center mx-auto shadow-lg">
-                      <svg className="w-10 h-10 text-teal-600 dark:text-teal-400" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Hospital Tour Video</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">Explore our modern facilities and amenities</p>
-                    </div>
-                  </div>
-                  
-                  {/* Play Button Overlay */}
-                  <button className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 transition-all duration-300 group">
-                    <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <svg className="w-8 h-8 text-teal-600 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                      </svg>
-                    </div>
-                  </button>
-                </div>
-                
-                {/* Video Info */}
-                <div className="p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
-                  <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">Inside Sahib Hospital</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Take a virtual tour of our comprehensive healthcare facilities, from emergency care to specialized treatment centers.</p>
-                </div>
+                <video
+                  className="aspect-video w-full"
+                  src={hospitalVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                >
+                  Your browser does not support the video tag.
+                </video>
               </div>
 
               {/* Quick Stats */}
