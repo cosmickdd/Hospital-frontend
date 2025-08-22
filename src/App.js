@@ -9,6 +9,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
+import ActivatePage from './components/ActivatePage.jsx';
+
 function App() {
   return (
     <DarkModeProvider>
@@ -20,6 +22,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginForm />} />
               <Route path="/register" element={<RegisterForm />} />
+              <Route path="/activate/:uid/:token" element={<ActivatePage />} />
               <Route path="/profile" element={
                 <ProtectedRoute>
                   <ProfilePage />
