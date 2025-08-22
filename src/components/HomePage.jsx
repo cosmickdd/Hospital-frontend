@@ -790,7 +790,7 @@ const HomePage = () => {
         </div>
       </footer>
     </div>
-  );
+  );    
 };
 
 export default HomePage;
