@@ -12,7 +12,6 @@ const RegisterForm = () => {
     confirmPassword: '',
     is_doctor: false,
   });
-  // const [captchaToken, setCaptchaToken] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,9 +25,6 @@ const RegisterForm = () => {
     }));
   };
 
-  // const handleCaptchaChange = (token) => {
-  //   setCaptchaToken(token);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,11 +36,6 @@ const RegisterForm = () => {
       setLoading(false);
       return;
     }
-  // if (!captchaToken) {
-  //   setError('Please complete the CAPTCHA.');
-  //   setLoading(false);
-  //   return;
-  // }
     try {
       const response = await fetch('/api/accounts/register/', {
         method: 'POST',
@@ -56,7 +47,6 @@ const RegisterForm = () => {
           email: formData.email,
           password: formData.password,
           is_doctor: formData.is_doctor,
-          // captcha_token: captchaToken,
         }),
       });
       if (response.ok) {
@@ -68,7 +58,6 @@ const RegisterForm = () => {
           confirmPassword: '',
           is_doctor: false,
         });
-  // setCaptchaToken('');
       } else {
         const data = await response.json();
         setError(data.detail || 'Registration failed.');
