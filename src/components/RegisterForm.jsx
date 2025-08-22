@@ -1,4 +1,4 @@
-import ReCAPTCHA from 'react-google-recaptcha';
+
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ const RegisterForm = () => {
     confirmPassword: '',
     is_doctor: false,
   });
-  const [captchaToken, setCaptchaToken] = useState('');
+  // const [captchaToken, setCaptchaToken] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,9 +26,9 @@ const RegisterForm = () => {
     }));
   };
 
-  const handleCaptchaChange = (token) => {
-    setCaptchaToken(token);
-  };
+  // const handleCaptchaChange = (token) => {
+  //   setCaptchaToken(token);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,11 +40,11 @@ const RegisterForm = () => {
       setLoading(false);
       return;
     }
-    if (!captchaToken) {
-      setError('Please complete the CAPTCHA.');
-      setLoading(false);
-      return;
-    }
+  // if (!captchaToken) {
+  //   setError('Please complete the CAPTCHA.');
+  //   setLoading(false);
+  //   return;
+  // }
     try {
       const response = await fetch('/api/accounts/register/', {
         method: 'POST',
@@ -56,7 +56,7 @@ const RegisterForm = () => {
           email: formData.email,
           password: formData.password,
           is_doctor: formData.is_doctor,
-          captcha_token: captchaToken,
+          // captcha_token: captchaToken,
         }),
       });
       if (response.ok) {
@@ -68,7 +68,7 @@ const RegisterForm = () => {
           confirmPassword: '',
           is_doctor: false,
         });
-        setCaptchaToken('');
+  // setCaptchaToken('');
       } else {
         const data = await response.json();
         setError(data.detail || 'Registration failed.');
@@ -83,6 +83,7 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit} className="register-form">
       {/* ...existing form fields... */}
+      {/*
       {process.env.REACT_APP_RECAPTCHA_SITE_KEY ? (
         <ReCAPTCHA
           sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
@@ -93,6 +94,7 @@ const RegisterForm = () => {
           reCAPTCHA site key is not set. Please set REACT_APP_RECAPTCHA_SITE_KEY in your .env file.
         </div>
       )}
+      */}
       <button type="submit" disabled={loading}>
         {loading ? 'Registering...' : 'Register'}
       </button>
