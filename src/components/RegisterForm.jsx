@@ -37,7 +37,7 @@ const RegisterForm = () => {
       return;
     }
     try {
-      const response = await fetch('/api/accounts/register/', {
+      const response = await fetch('https://hospital-backend-ejes.onrender.com/api/accounts/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
