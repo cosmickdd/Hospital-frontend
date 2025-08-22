@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import CompactMeditationFigure from './CompactMeditationFigure';
 import { useDarkMode } from '../contexts/DarkModeContext';
 import PranaAICharacter from './PranaAICharacter';
@@ -6,6 +8,8 @@ import hospitalVideo from '../assets/videos/hospitalvideo.mp4';
 import { motion } from 'framer-motion';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   // Therapy slider state and auto-scroll functionality
   const [currentSlide, setCurrentSlide] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -23,6 +27,15 @@ const HomePage = () => {
         behavior: 'smooth',
         block: 'start',
       });
+    }
+  };
+
+  // Handler for protected actions
+  const handleProtectedAction = (sectionId) => {
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: sectionId } });
+    } else {
+      scrollToSection(sectionId);
     }
   };
 
@@ -108,16 +121,16 @@ const HomePage = () => {
               </div>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <button 
-                  onClick={() => scrollToSection('prana-ai')}
+                  onClick={() => handleProtectedAction('prana-ai')}
                   className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
                 >
                   Meet Prana AI
                 </button>
                 <button 
-                  onClick={() => scrollToSection('services')}
+                  onClick={() => handleProtectedAction('services')}
                   className="border-2 border-teal-600 dark:border-teal-400 text-teal-600 dark:text-teal-400 hover:bg-teal-600 dark:hover:bg-teal-400 hover:text-white dark:hover:text-gray-900 font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  Explore Services
+                  Book Now
                 </button>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pt-8">
