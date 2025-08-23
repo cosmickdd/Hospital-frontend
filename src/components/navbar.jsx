@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.svg'; // place your logo in src/assets/
 import { useDarkMode } from '../contexts/DarkModeContext';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
   const [showTopBar, setShowTopBar] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -224,6 +228,15 @@ const Navbar = () => {
                 CONTACT
               </button>
             </nav>
+            {/* Logout Button for logged-in users */}
+            {isAuthenticated && (
+              <button
+                onClick={() => { logout(); navigate('/'); }}
+                className="ml-4 px-4 py-2 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors"
+              >
+                Logout
+              </button>
+            )}
 
             {/* Appointment Button - Desktop */}
             <div className="hidden md:flex items-center space-x-4">

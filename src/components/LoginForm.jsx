@@ -20,7 +20,7 @@ const LoginForm = () => {
     try {
       const data = await loginUser({ username, password });
       login(data.access); // Save access token
-      // Redirect to intended section or profile
+      // Redirect to intended section or home
       if (location.state && location.state.from) {
         setTimeout(() => {
           const el = document.getElementById(location.state.from);
@@ -30,7 +30,7 @@ const LoginForm = () => {
         }, 300);
         navigate('/', { replace: true });
       } else {
-        navigate('/profile');
+        navigate('/', { replace: true });
       }
     } catch (err) {
       setError(err.message);
@@ -69,16 +69,15 @@ const LoginForm = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg transition-all duration-300"
+            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300"
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
+          <div className="text-right mt-2">
+            <Link to="/forgot-password" className="text-sm text-teal-600 hover:underline dark:text-teal-300">Forgot Password?</Link>
+          </div>
         </form>
-        <div className="mt-8 text-center">
-          <span className="text-gray-500 dark:text-gray-400">Don't have an account?</span>{' '}
-          <Link to="/register" className="text-teal-600 dark:text-teal-300 font-semibold hover:underline">Register</Link>
-        </div>
       </div>
     </div>
   );
