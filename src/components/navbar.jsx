@@ -3,10 +3,12 @@ import logo from '../assets/logo.svg'; // place your logo in src/assets/
 import { useDarkMode } from '../contexts/DarkModeContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import ProfileDrawer from './ProfileDrawer';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const [showTopBar, setShowTopBar] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
@@ -228,15 +230,17 @@ const Navbar = () => {
                 CONTACT
               </button>
             </nav>
-            {/* Logout Button for logged-in users */}
+            {/* Profile Button for logged-in users */}
             {isAuthenticated && (
               <button
-                onClick={() => { logout(); navigate('/'); }}
-                className="ml-4 px-4 py-2 bg-red-600 text-white rounded-md font-medium hover:bg-red-700 transition-colors"
+                onClick={() => setDrawerOpen(true)}
+                className="ml-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-md font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
               >
-                Logout
+                Profile
               </button>
             )}
+  {/* Profile Drawer */}
+  <ProfileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
 
             {/* Appointment Button - Desktop */}
             <div className="hidden md:flex items-center space-x-4">

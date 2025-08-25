@@ -11,6 +11,8 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 import ActivatePage from './components/ActivatePage.jsx';
 import ForgotPassword from './components/ForgotPassword.jsx';
+import PasswordResetConfirm from './components/PasswordResetConfirm.jsx';
+import PasswordResetSuccess from './components/PasswordResetSuccess.jsx';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/activate/:uid/:token" element={<ActivatePage />} />
+              <Route path="/reset-password/:uid/:token" element={<PasswordResetConfirm />} />
+              <Route path="/reset-success" element={<PasswordResetSuccess />} />
               <Route path="/profile" element={
                 <ProtectedRoute>
                   <ProfilePage />

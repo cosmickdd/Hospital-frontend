@@ -74,8 +74,11 @@ const LoginForm = () => {
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
-          <div className="text-right mt-2">
-            <Link to="/forgot-password" className="text-sm text-teal-600 hover:underline dark:text-teal-300">Forgot Password?</Link>
+          <div className="flex flex-col sm:flex-row justify-between mt-2">
+            <Link to="/forgot-password" className="text-sm text-teal-600 hover:underline dark:text-teal-300 mb-2 sm:mb-0">Forgot Password?</Link>
+            <span className="text-sm text-gray-500 dark:text-gray-400">Don't have an account?{' '}
+              <Link to="/register" className="text-teal-600 dark:text-teal-300 font-semibold hover:underline">Register</Link>
+            </span>
           </div>
         </form>
       </div>
